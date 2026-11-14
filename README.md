@@ -1,52 +1,93 @@
-# Project Overview
-The Student Portfolio Microservice aims to provide a platform where students can showcase their projects, skills, and academic achievements. It's built with scalability and modularity in mind, allowing for independent development and deployment of the frontend and backend components.
+# Pixel River Financial Bank Services
 
-## Architecture
-**The application follows a simple microservice pattern:**
+This project is a small banking web app. It is split into separate services (microservices) that run in Docker containers. Everything is reached through one front door: NGINX on port 80.
 
-## Frontend: A client-side application (e.g., React, Angular, Vue.js) responsible for the user interface and interactions.
+Student: Kyra Strange (0425418)
 
-    Frontend: A client-side application (e.g., React, Angular, Vue.js) responsible for the user interface and interactions.
+## What the web app does
 
-    Backend: A server-side application (e.g., Node.js with Express, Python with Flask/Django, Java with Spring Boot) that handles business logic, API requests, and interacts with the database.
+- A student portfolio page opens first. It has a "Banking App" link.
+- The link takes you to the bank. In the bank you can:
+  - **Register** a new user
+  - **Log in**
+  - See your **balance** on the dashboard
+  - **Deposit** money (numbers only, like 500.50)
+  - **Withdraw** money (numbers only)
+  - **View Transactions**: a monthly report of your deposits and withdrawals
+  - **Log out**
+- User details and balances are saved in a MongoDB database. The data is kept even after a restart.
 
-    Transactions: A service specifically for managing and processing all financial transactions related to student portfolios, such as payments for premium features or certifications.
+## The services
 
-    Nginx: Serves as the entry point for all incoming HTTP requests. It acts as a reverse proxy, directing requests to either the frontend static files or proxying API calls to the backend service.
+| Service | What it is | What it does |
+| --- | --- | --- |
+| `studentportfolio` | HTML + Bootstrap | Shows the portfolio page |
+| `backend` | Python + Flask | Register, login, dashboard, deposit, withdraw, logout |
+| `transactions` | JavaScript (Node.js + Express) | Builds the monthly transactions report |
+| `mongo` | MongoDB | Saves the data |
+| `nginx` | NGINX | The only entrance. It sends each request to the right service |
 
-    MongoDB: A NoSQL database used by the backend service to store all application data (e.g., student profiles, project details, skills).
+## How the traffic flows
 
+1. You open `http://localhost` (port 80, no port number needed).
+2. NGINX reads the address and sends the request:
+   - Normal pages go to the portfolio files.
+   - `/api/transactions/...` goes to the transactions service.
+   - Other banking pages (`/api/login`, `/api/register`, `/api/dashboard`, and so on) go to the backend.
+3. The backend and the transactions service read and write data in MongoDB.
 
-+------------------+     +-------------------+     +-------------------+     +--------------+
-|      Client      | <-> |   Nginx (Port 80) | <-> |     Frontend      |     |              |
-| (Web Browser)    |     | (Reverse Proxy)   |     | (Static Files)    |     |              |
-+------------------+     +-------------------+     +-------------------+     |   MongoDB    |
-                                   |                                         |  (Database)  |
-                                   | API Calls (via Nginx reverse proxy)     |              |
-                                   v                                         |              |
-                                +-------------------+ <---------------------+--------------+
-                                |      Backend      |
-                                |   (API Service)   |
-                                +-------------------+
-                                          |
-                                          |
-                                          v
-                                +-----------------------+
-                                |      Transactions     |
-                                | (Payment Processing)  |
-                                +-----------------------+
-## Technologies Used
-    Frontend: [Specify your frontend framework/library, e.g., React, Angular, Vue.js, or just HTML/CSS/JS]
+Only NGINX has a port open on the computer (`80:80`). The backend, transactions service and database cannot be reached directly from outside. This gives one place to control and log all traffic.
 
-    Backend: [Specify your backend language/framework, e.g., Node.js/Express, Python/Flask, Java/Spring Boot]
+## How to run it
 
-    Transactions: [Specify the technology for the new transactions microservice, e.g., a dedicated microservice using Stripe, PayPal, or another payment gateway.]
+1. Install Docker Desktop and wait until it says it is running.
+2. Open PowerShell in this project folder (the one with `docker-compose.yml`).
+3. Start everything:
 
-    Database: MongoDB
+   ```
+   docker compose up --build -d
+   ```
 
-    API Proxy/Web Server: Nginx
+4. Open `http://localhost` in your browser and click "Banking App".
+5. To see the NGINX log of all requests:
 
-    Containerization (Recommended): Docker, Docker Compose (for local development)
+   ```
+   docker compose logs -f nginx
+   ```
 
+   Press Ctrl+C to stop watching.
+6. When you are finished, stop and clean up:
 
+   ```
+   docker compose down -v
+   ```
 
+## How to run the tests
+
+The backend tests are in `backend/tests`. From the project folder:
+
+```
+cd backend
+pip install -r requirements.txt
+pip install pytest
+pytest -q tests/
+```
+
+## Automatic testing (CI)
+
+The file `.github/workflows/ci.yml` tells GitHub Actions to run the backend tests every time code is pushed (or a pull request is opened) on the `main` branch.
+
+- A green check means all tests passed.
+- A red X means something broke.
+- GitHub saves who pushed, when, and the result. This is the audit trail.
+
+## Project folders
+
+```
+backend/            Python + Flask banking service (and its tests)
+transactions/       Node.js transactions service
+studentportfolio/   Front-end portfolio page
+nginx.conf          NGINX routing rules
+docker-compose.yml  Starts all the services together
+.github/workflows/  The CI pipeline (ci.yml)
+```
