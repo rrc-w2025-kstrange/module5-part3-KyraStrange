@@ -10,7 +10,7 @@ on:
 
 jobs:
   test-backend:
-    runs-on: ubuntu-latest   ## Use GitHub’s hosted Ubuntu runner
+    runs-on: ubuntu-24.04   ## Use GitHub’s hosted Ubuntu runner
 
     # Spin up a MongoDB sidecar container for the job (even though tests use mongomock).
     services:
