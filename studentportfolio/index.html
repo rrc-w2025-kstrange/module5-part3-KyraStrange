@@ -31,8 +31,8 @@
     <!-- Hero Section -->
     <section id="hero" class="text-center text-white d-flex align-items-center">
         <div class="container">
-            <h1>Welcome to My Portfolio I am deploying a microservice built in different programming language and connecting the services
-                via API so that the services can communicate with each other and use NGINX to serve as entrance into the application</h1>
+            <h1>Welcome to My Portfolio</h1>
+            <p>This site is part of my microservice project. The services are written in different programming languages and talk to each other through APIs. NGINX is the single entrance to the application.</p>
             <p>Hi, I’m Kyra Strange, Highly analytical and versatile Quality Assurance Lead with a unique background spanning SQL Development, Data Analytics, and Software Testing. 
                 Leverages a deep understanding of data integrity, system architecture, and quality methodologies to deliver robust, high-performance software solutions, now seamlessly 
                 integrating development responsibilities with QA leadership.</p>
@@ -49,7 +49,8 @@
                     <img src="assets/profile.png" alt="Kyra Strange" class="rounded-circle mb-3" width="200">
                 </div>
                 <div class="col-md-8">
-                    <p>I’m a IT/DevOps instructor with a love for coding, problem-solving, and building projects that make a difference. I enjoy learning new technologies and collaborating with others to turn ideas into reality.</p>
+                    <p>I’m a Quality Assurance Lead and a student in the COMP-4001 Developing in a DevOps Environment course at RRC Polytech. I have a background in SQL development, data analytics and software testing.</p>
+                    <p>In this course I am learning Docker, NGINX and CI/CD by building a banking app made of small services. I like checking that things work, and I enjoy learning new tools.</p>
                 </div>
             </div>
         </div>
@@ -63,26 +64,25 @@
                 <div class="col-md-4 mb-4">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Task Manager App</h5>
-                            <p class="card-text">A simple app to organize tasks, built with Python and Tkinter.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Weather Dashboard</h5>
-                            <p class="card-text">A web app showing live weather data using JavaScript and APIs.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Banking Webapp</h5>
-                            <p class="card-text">This is a simple banking application with basic functions like withdraw, deposit and check balance</p>
-                            <!-- <a href="/banking/"target = "_blank">View Banking App</a> -->
+                            <h5 class="card-title">Banking Web App</h5>
+                            <p class="card-text">A banking app built with Python, Flask and MongoDB. You can register, log in, deposit, withdraw and see your balance. It runs in Docker containers.</p>
                             <a href="/api/login">Banking App</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Transactions Service</h5>
+                            <p class="card-text">A small JavaScript (Node.js) service that makes a monthly report of each user’s deposits and withdrawals.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">CI Pipeline</h5>
+                            <p class="card-text">A GitHub Actions workflow that runs the backend tests every time I push code to the main branch.</p>
                         </div>
                     </div>
                 </div>
@@ -92,22 +92,16 @@
 
     <!-- Skills Section -->
     <section id="skills" class="py-5">
-        <div class="container">
-            <h2 class="text-center mb-4">Skills</h2>
-            <div class="row">
-                <div class="col-md-6">
-                    <p>Python</p>
-                    <div class="progress">
-                        <div class="progress-bar" style="width: 80%;">80%</div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <p>HTML/CSS</p>
-                    <div class="progress">
-                        <div class="progress-bar" style="width: 90%;">90%</div>
-                    </div>
-                </div>
-            </div>
+        <div class="container text-center">
+            <h2 class="mb-4">Skills</h2>
+            <span class="badge bg-primary fs-6 m-1">Docker &amp; Docker Compose</span>
+            <span class="badge bg-primary fs-6 m-1">NGINX</span>
+            <span class="badge bg-primary fs-6 m-1">GitHub Actions (CI)</span>
+            <span class="badge bg-primary fs-6 m-1">Python &amp; Flask</span>
+            <span class="badge bg-primary fs-6 m-1">Node.js</span>
+            <span class="badge bg-primary fs-6 m-1">MongoDB</span>
+            <span class="badge bg-primary fs-6 m-1">SQL</span>
+            <span class="badge bg-primary fs-6 m-1">Software Testing</span>
         </div>
     </section>
 
